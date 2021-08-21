@@ -1,6 +1,6 @@
 from django.db import models
 from django.contrib.auth import get_user_model
-from phonenumber_field.modelfields import PhoneNumberField
+from constants.constants import DEFAULT_STATUS_ID
 
 
 class Advert(models.Model):
@@ -42,6 +42,7 @@ class Advert(models.Model):
     )
     status = models.ForeignKey(
         'advertiser_app.Status',
+        default=DEFAULT_STATUS_ID,
         on_delete=models.DO_NOTHING,
         related_name='adverts',
         verbose_name='Status'
