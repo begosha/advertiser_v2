@@ -1,10 +1,14 @@
-from django.contrib.auth.mixins import PermissionRequiredMixin
 from django.core.exceptions import ObjectDoesNotExist
-from django.shortcuts import render
-from django.shortcuts import redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from datetime import datetime
 from django.urls import reverse, reverse_lazy
-from django.views.generic import View, TemplateView, RedirectView, FormView, ListView, DetailView, CreateView, UpdateView, DeleteView
+from django.views.generic import (
+    ListView,
+    DetailView,
+    CreateView,
+    UpdateView,
+    DeleteView
+)
 from advertiser_app.models import (
     Advert,
     Status,
@@ -13,7 +17,7 @@ from advertiser_app.models import (
 from django.views.generic.edit import FormMixin
 from constants.constants import DEFAULT_STATUS_ID
 from advertiser_app.forms import AdvertForm
-from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
 import json
 from constants.constants import *
 from django.contrib import messages
@@ -32,8 +36,9 @@ class AdvertList(ListView):
         return queryset
 
 
-class AdvertForModerationList(AdvertList):
+class AdvertForModerationList(PermissionRequiredMixin, AdvertList):
     template_name = 'adverts/moderation_list.html'
+    permission_required = 'advertiser_app.can_view_advert'
 
     def get_queryset(self):
         queryset = Advert.objects.filter(status__exact=DEFAULT_STATUS_ID, is_deleted__exact=False)
@@ -45,10 +50,11 @@ class AdvertDetail(DetailView):
     template_name = 'adverts/detail.html'
 
 
-class AdvertDetailModerate(DetailView, FormMixin):
+class AdvertDetailModerate(PermissionRequiredMixin, DetailView, FormMixin):
     model = Advert
     form_class = AdvertForm
     template_name = 'adverts/detail.html'
+    permission_required = 'advertiser_app.can_change_advert'
 
     def post(self, request, *args, **kwargs):
         body = json.loads(self.request.body)
@@ -108,11 +114,14 @@ class AdvertCreate(LoginRequiredMixin, CreateView):
         return reverse('advert_list')
 
 
-class AdvertUpdate(UpdateView):
+class AdvertUpdate(PermissionRequiredMixin, UpdateView):
     form_class = AdvertForm
     model = Advert
     template_name = 'adverts/update.html'
     context_object_name = 'advert'
+
+    def has_permission(self):
+        return self.get_object().author == self.request.user
 
     def form_valid(self, form):
         self.object = form.save()
@@ -126,10 +135,13 @@ class AdvertUpdate(UpdateView):
             return reverse('advert_detail', kwargs={'pk': self.kwargs.get('pk')})
 
 
-class AdvertDelete(DeleteView):
+class AdvertDelete(PermissionRequiredMixin, DeleteView):
+
+    def has_permission(self):
+        return self.get_object().author == self.request.user
 
     def get(self,request, *args, **kwargs):
-        ad = Advert.objects.get(id=self.kwargs.get('pk'))
-        ad.is_deleted = True
-        ad.save()
-        return redirect('advert_list')
+            ad = Advert.objects.get(id=self.kwargs.get('pk'))
+            ad.is_deleted = True
+            ad.save()
+            return redirect('advert_list')
