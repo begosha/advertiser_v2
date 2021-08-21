@@ -60,7 +60,9 @@ class Advert(models.Model):
         verbose_name='Updated At'
     )
     published_at = models.DateTimeField(
-        verbose_name='Published At'
+        verbose_name='Published At',
+        null=True,
+        blank=True
     )
 
     class Meta:
