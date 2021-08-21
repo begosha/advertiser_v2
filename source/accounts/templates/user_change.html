@@ -14,10 +14,10 @@
         <br>
     
     {% if not fields_only %}
-        <input type="submit" value="Submit">
+        <input class="btn btn-outline-info" type="submit" value="Submit">
     {% endif %}
 </form>
-
+    <br>
     <a class="btn btn-outline-info" href="{% url 'password_change' %}">Change Password</a>
     <br>
 </div>
