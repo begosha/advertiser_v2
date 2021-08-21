@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+{% block title %}{{ user_obj.get_full_name|default:user_obj.username }}{% endblock %}
+
+{% block content %}
+<div class="task-view">
+    <h1>Profile of: {{ user_obj.get_full_name|default:user_obj.username }}</h1>
+    <p>Username: {{ user_obj.username }}</p>
+    <p>Name: {{ user_obj.first_name }}</p>
+    <p>Last Name: {{ user_obj.last_name }}</p>
+    <p>Phone Number: {{ user_obj.profile.phone_number }}</p>
+    <p>Почта: {{ user_obj.email }}</p>
+    {% if request.user == user_obj %}
+    <a class="btn btn-outline-info" href="{% url 'change' %}">Edit</a>
+    <a class="btn btn-outline-info" href="{% url 'password_change' %}">Change Password</a>
+    {% endif %}
+</div>
+
+{% endblock %}
