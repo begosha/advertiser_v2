@@ -33,6 +33,30 @@ Create virtual env with following command:
 ~$ virtualenv -p python3 venv
 ```
 
+Your project structure should be the following:
+
+```
+your_local_dir
+
+|-- source
+
+|   |-- accounts
+
+|   |-- advertiser
+
+|   |-- advertiser_app
+
+|   |-- constants
+
+|   |-- manage.py
+
+|-- venv
+
+|-- requirements.txt
+
+|-- .env
+```
+
 Activate your virtual env using command: 
 
 ```
