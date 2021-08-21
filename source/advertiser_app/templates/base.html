@@ -20,9 +20,15 @@
                 <div class="collapse navbar-collapse" id="navbarNav">
                     <ul class="navbar-nav">
                         {% if user.is_authenticated %}
-                            <li class="nav-item" style="padding-top: 7px"><a href="{% url 'detail' user.pk %}">My Profile</a>!</li>
+                            <li class="nav-item" style="padding-top: 7px"><a href="{% url 'detail' user.pk %}">My Profile</a></li>
                             <li class="nav-item">
                                     <a class="nav-link" href="{% url 'logout' %}?next={{ request.get_full_path }}">Sign out</a>
+                                </li>
+                        <li class="nav-item">
+                                    <a class="nav-link" href="{% url 'moderation' %}">Moderation</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="">Add Advert</a>
                                 </li>
                             {% else %}
                                 {% if 'create' in request.get_full_path %}
@@ -43,12 +49,6 @@
                                     <a class="nav-link" href="{% url 'create' %}?next={{ request.get_full_path }}">Sign Up</a>
                                 </li>
                                 {% endif %}
-                                <li class="nav-item">
-                                    <a class="nav-link" href="">Moderation</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" href="">Add Advert</a>
-                                </li>
                         {% endif %}
                     </ul>
                 </div>

@@ -12,7 +12,17 @@
     </div>
     <div class="col-md-8">
       <div class="card-body">
-        <h5 class="card-title"><a href="">{{ ad.title }}</a></h5>
+        <h5 class="card-title">
+          {% if 'moderation' in request.get_full_path %}
+          <a href="{% url 'advert_detail_moderate' ad.pk %}">
+            {{ ad.title }}
+          </a>
+          {% else %}
+          <a href="{% url 'advert_detail' ad.pk %}">
+            {{ ad.title }}
+          </a>
+          {% endif %}
+        </h5>
         <p class="card-text">{{ ad.description }}</p>
         <p class="card-text">{{ ad.author }}</p>
         <p class="card-text"><small class="text-muted">Created at: {{ ad.published_at }}</small></p>
