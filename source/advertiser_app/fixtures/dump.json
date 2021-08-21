@@ -1,0 +1,229 @@
+[
+{
+  "model": "advertiser_app.advert",
+  "pk": 18,
+  "fields": {
+    "title": "Client 1 Advert",
+    "description": "Very good description of ad! 1",
+    "author": 7,
+    "image": "images/IMG_20210811_112526.jpg",
+    "price": 25,
+    "category": 2,
+    "status": 2,
+    "is_deleted": false,
+    "created_at": "2021-08-21T12:41:28.041Z",
+    "updated_at": "2021-08-21T12:41:28.041Z",
+    "published_at": null
+  }
+},
+{
+  "model": "advertiser_app.advert",
+  "pk": 19,
+  "fields": {
+    "title": "Client 2 Advert",
+    "description": "Very good description of ad! 2",
+    "author": 8,
+    "image": "images/bbcw-key-points-01_arZ9z3l.jpg",
+    "price": 10,
+    "category": 2,
+    "status": 2,
+    "is_deleted": false,
+    "created_at": "2021-08-21T12:42:08.344Z",
+    "updated_at": "2021-08-21T12:42:08.344Z",
+    "published_at": null
+  }
+},
+{
+  "model": "advertiser_app.advert",
+  "pk": 20,
+  "fields": {
+    "title": "Very Important Announcement",
+    "description": "Dear clients, please stop posting inappropriate content!",
+    "author": 6,
+    "image": "images/obama_MSfqihU.jpg",
+    "price": null,
+    "category": 1,
+    "status": 2,
+    "is_deleted": false,
+    "created_at": "2021-08-21T12:43:01.809Z",
+    "updated_at": "2021-08-21T12:43:01.809Z",
+    "published_at": null
+  }
+},
+{
+  "model": "advertiser_app.advert",
+  "pk": 21,
+  "fields": {
+    "title": "Client 1 Moderated Ad",
+    "description": "Here comes the moderated one~",
+    "author": 7,
+    "image": "images/Vladimir_Putin_2018-05-14_a27LgET.jpg",
+    "price": 10,
+    "category": 2,
+    "status": 1,
+    "is_deleted": false,
+    "created_at": "2021-08-21T12:44:05.063Z",
+    "updated_at": "2021-08-21T12:44:05.063Z",
+    "published_at": null
+  }
+},
+{
+  "model": "advertiser_app.advert",
+  "pk": 22,
+  "fields": {
+    "title": "My second moderated ad",
+    "description": "Here comes moderated post by another user",
+    "author": 8,
+    "image": "images/croo.jpg",
+    "price": 30,
+    "category": 2,
+    "status": 1,
+    "is_deleted": false,
+    "created_at": "2021-08-21T12:45:47.047Z",
+    "updated_at": "2021-08-21T12:45:47.047Z",
+    "published_at": null
+  }
+},
+{
+  "model": "advertiser_app.advert",
+  "pk": 23,
+  "fields": {
+    "title": "My post but not moderated",
+    "description": "Я устала уже добавлять фикстуры сколько можно ужас",
+    "author": 6,
+    "image": "images/sad-cat-leoch-studio.jpg",
+    "price": null,
+    "category": 1,
+    "status": 3,
+    "is_deleted": true,
+    "created_at": "2021-08-21T12:48:28.716Z",
+    "updated_at": "2021-08-21T12:48:28.716Z",
+    "published_at": null
+  }
+},
+{
+  "model": "advertiser_app.status",
+  "pk": 1,
+  "fields": {
+    "status": "moderated"
+  }
+},
+{
+  "model": "advertiser_app.status",
+  "pk": 2,
+  "fields": {
+    "status": "to_moderate"
+  }
+},
+{
+  "model": "advertiser_app.status",
+  "pk": 3,
+  "fields": {
+    "status": "declined"
+  }
+},
+{
+  "model": "advertiser_app.status",
+  "pk": 4,
+  "fields": {
+    "status": "do_delete"
+  }
+},
+{
+  "model": "advertiser_app.status",
+  "pk": 5,
+  "fields": {
+    "status": "published"
+  }
+},
+{
+  "model": "advertiser_app.category",
+  "pk": 1,
+  "fields": {
+    "category": "announcements"
+  }
+},
+{
+  "model": "advertiser_app.category",
+  "pk": 2,
+  "fields": {
+    "category": "sale"
+  }
+},
+{
+  "model": "auth.user",
+  "pk": 5,
+  "fields": {
+    "password": "pbkdf2_sha256$260000$UIez3psierc4UeE709dl5u$3+jg7aAnza9piAF15aajeHq8EYN+CqQXDI1OZLkbBNQ=",
+    "last_login": "2021-08-21T12:55:43.177Z",
+    "is_superuser": true,
+    "username": "admin",
+    "first_name": "",
+    "last_name": "",
+    "email": "",
+    "is_staff": true,
+    "is_active": true,
+    "date_joined": "2021-08-21T12:37:10.875Z",
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "auth.user",
+  "pk": 6,
+  "fields": {
+    "password": "pbkdf2_sha256$260000$ycJB5h2DziHBS0o1Gz6xvt$e9EWgj7vUtjffYtkViw4wVwZ2wqNRZeV5or9WLOd8dg=",
+    "last_login": "2021-08-21T12:54:45.777Z",
+    "is_superuser": false,
+    "username": "moderator",
+    "first_name": "",
+    "last_name": "",
+    "email": "",
+    "is_staff": false,
+    "is_active": true,
+    "date_joined": "2021-08-21T12:38:41Z",
+    "groups": [
+      1
+    ],
+    "user_permissions": [
+      40
+    ]
+  }
+},
+{
+  "model": "auth.user",
+  "pk": 7,
+  "fields": {
+    "password": "pbkdf2_sha256$260000$y1ouXp7IJdSr23oEjrQcWZ$DvIZnQ4xHAg1exLUAPmzuSe+ya23FyAMlqgNR7eSGo8=",
+    "last_login": null,
+    "is_superuser": false,
+    "username": "client",
+    "first_name": "",
+    "last_name": "",
+    "email": "",
+    "is_staff": false,
+    "is_active": true,
+    "date_joined": "2021-08-21T12:39:32Z",
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "auth.user",
+  "pk": 8,
+  "fields": {
+    "password": "pbkdf2_sha256$260000$McVI3SkdN6676lJ6s64JrA$1fUnLsrNWO23muH7ekaz3Ngv1l/P0Un6EUzX4pAvY3M=",
+    "last_login": null,
+    "is_superuser": false,
+    "username": "client2",
+    "first_name": "",
+    "last_name": "",
+    "email": "",
+    "is_staff": false,
+    "is_active": true,
+    "date_joined": "2021-08-21T12:40:36.319Z",
+    "groups": [],
+    "user_permissions": []
+  }
+}
+]
