@@ -37,7 +37,11 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     # lib apps
-    'psycopg2'
+    'psycopg2',
+    'phonenumber_field',
+    # custom apps
+    'accounts',
+
 ]
 
 MIDDLEWARE = [
