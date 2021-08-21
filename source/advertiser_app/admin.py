@@ -12,7 +12,7 @@ class AdvertAdmin(admin.ModelAdmin):
     list_filter = ['author', 'title']
     search_fields = ['author', 'title']
     fields = ['id', 'author', 'title', 'description', 'image',
-              'price', 'status', 'category', 'created_at', 'updated_at', 'published_at']
+              'price', 'status', 'category', 'is_deleted', 'created_at', 'updated_at', 'published_at']
     readonly_fields = ['id', 'created_at', 'updated_at', 'published_at']
 
 
