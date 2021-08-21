@@ -12,8 +12,8 @@ class Advert(models.Model):
     )
     description = models.TextField(
         max_length=2000,
-        null=False,
-        blank=False,
+        null=True,
+        blank=True,
         verbose_name='Description'
     )
     author = models.ForeignKey(
