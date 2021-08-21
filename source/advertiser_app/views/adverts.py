@@ -1,6 +1,7 @@
 from django.contrib.auth.mixins import PermissionRequiredMixin
 from django.shortcuts import render
-from django.urls import reverse
+from django.shortcuts import redirect
+from django.urls import reverse, reverse_lazy
 from django.views.generic import View, TemplateView, RedirectView, FormView, ListView, DetailView, CreateView, UpdateView, DeleteView
 from advertiser_app.models import (
     Advert,
@@ -10,6 +11,7 @@ from advertiser_app.models import (
 from constants.constants import DEFAULT_STATUS_ID
 from advertiser_app.forms import AdvertForm
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.http import HttpResponse
 
 
 class AdvertList(ListView):
@@ -21,7 +23,7 @@ class AdvertList(ListView):
     paginate_orphans = 1
 
     def get_queryset(self):
-        queryset = super().get_queryset().filter(status__exact=1)
+        queryset = super().get_queryset().filter(is_deleted__exact=False, status__exact=1)
         return queryset
 
 
@@ -29,7 +31,7 @@ class AdvertForModerationList(AdvertList):
     template_name = 'adverts/moderation_list.html'
 
     def get_queryset(self):
-        queryset = Advert.objects.filter(status__exact=DEFAULT_STATUS_ID)
+        queryset = Advert.objects.filter(status__exact=DEFAULT_STATUS_ID, is_deleted__exact=False)
         return queryset
 
 
@@ -70,3 +72,11 @@ class AdvertUpdate(UpdateView):
         else:
             return reverse('advert_detail', kwargs={'pk': self.kwargs.get('pk')})
 
+
+class AdvertDelete(DeleteView):
+
+    def get(self,request, *args, **kwargs):
+        ad = Advert.objects.get(id=self.kwargs.get('pk'))
+        ad.is_deleted = True
+        ad.save()
+        return redirect('advert_list')
