@@ -23,7 +23,7 @@
         </h5>
         <p class="card-text">{{ ad.description }}</p>
         <p class="card-text"><a href="{% url 'detail' ad.author.pk %}">{{ ad.author }}</a></p>
-        <p class="card-text"><small class="text-muted">Created at: {{ ad.published_at }}</small></p>
+        <p class="card-text"><small class="text-muted">Created at: {{ ad.created_at }}</small></p>
       </div>
     </div>
   </div>

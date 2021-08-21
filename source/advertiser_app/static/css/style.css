@@ -3,3 +3,12 @@
     height: 15vw;
     object-fit: cover;
 }
+.header-info-block {
+	margin: 50px 0;
+	text-align: center;
+	color: #424242;
+}
+	.header-info-block h1{
+		text-transform: uppercase;
+		font-weight: bold;
+	}
