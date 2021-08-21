@@ -7,6 +7,7 @@ from advertiser_app.models import (
     Status,
     Category
 )
+from constants.constants import DEFAULT_STATUS_ID
 
 
 class AdvertList(ListView):
@@ -20,3 +21,22 @@ class AdvertList(ListView):
     def get_queryset(self):
         queryset = super().get_queryset().filter(status__exact=1)
         return queryset
+
+
+class AdvertForModerationList(AdvertList):
+    template_name = 'adverts/moderation_list.html'
+
+    def get_queryset(self):
+        queryset = Advert.objects.filter(status__exact=DEFAULT_STATUS_ID)
+        return queryset
+
+
+class AdvertDetail(DetailView):
+    model = Advert
+    template_name = 'adverts/detail.html'
+
+
+class AdvertDetailModerate(AdvertDetail):
+    model = Advert
+    template_name = 'adverts/detail.html'
+
