@@ -8,7 +8,7 @@ from advertiser_app.models import (
     Category
 )
 from constants.constants import DEFAULT_STATUS_ID
-
+from advertiser_app.forms import AdvertForm
 
 class AdvertList(ListView):
     template_name = 'adverts/list.html'
@@ -39,4 +39,19 @@ class AdvertDetail(DetailView):
 class AdvertDetailModerate(AdvertDetail):
     model = Advert
     template_name = 'adverts/detail.html'
+
+
+class AdvertCreate(CreateView):
+    template_name = 'adverts/create.html'
+    form_class = AdvertForm
+    model = Advert
+
+    def form_valid(self, form):
+        author = self.request.user
+        advert = form.save(commit=False)
+        advert.author = self.request.user
+        return super().form_valid(form)
+
+    def get_success_url(self):
+        return reverse('advert_list')
 

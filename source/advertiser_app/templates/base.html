@@ -28,7 +28,7 @@
                                     <a class="nav-link" href="{% url 'moderation' %}">Moderation</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" href="">Add Advert</a>
+                                    <a class="nav-link" href="{% url 'create' %}">Add Advert</a>
                                 </li>
                             {% else %}
                                 {% if 'create' in request.get_full_path %}
