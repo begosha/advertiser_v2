@@ -1,17 +1,12 @@
 from django.contrib.auth import authenticate, login, logout, get_user_model, update_session_auth_hash
-from django.shortcuts import render, get_object_or_404, redirect, reverse
+from django.shortcuts import render, redirect, reverse
 from .forms import MyUserCreationForm, UserChangeForm, ProfileChangeForm, PasswordChangeForm
-from advertiser_app.forms import SimpleSearchForm
 from django.views.generic import DetailView, ListView, UpdateView, CreateView
 from django.contrib.auth.models import User
-from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin, UserPassesTestMixin
-from django.core.paginator import Paginator
-from django.db.models import Q
-from django.utils.http import urlencode
-from accounts.models import Profile
+from django.contrib.auth.mixins import LoginRequiredMixin
 
 
-class UserDetailView(LoginRequiredMixin, DetailView):
+class UserDetailView(DetailView):
     model = get_user_model()
     template_name = 'user_detail.html'
     context_object_name = 'user_obj'

@@ -10,7 +10,6 @@ function getCookie(name) {
             }
         }
     }
-    console.log(cookieValue)
     return cookieValue;
 }
 
@@ -32,8 +31,11 @@ function decline(event){
             contentType: false,
             type: 'POST',
             dataType: "json",
-            success: function () {
-                window.reload()
+            success: function (res) {
+                if (res.redirect) {
+                    console.log('its redirecting')
+                    window.location.href = res.redirect_url;
+                }
             }
         });
 }
@@ -54,6 +56,12 @@ function approve(event){
             processData: false,
             contentType: false,
             type: 'POST',
-            dataType: "json"
+            dataType: "json",
+            success: function (res) {
+                if (res.redirect) {
+                    console.log('its redirecting')
+                    window.location.href = res.redirect_url;
+                }
+            }
         });
 }

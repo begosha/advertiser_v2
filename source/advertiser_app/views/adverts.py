@@ -1,4 +1,5 @@
 from django.core.exceptions import ObjectDoesNotExist
+from django.http import JsonResponse
 from django.shortcuts import render, redirect, get_object_or_404
 from datetime import datetime
 from django.urls import reverse, reverse_lazy
@@ -22,6 +23,8 @@ from django.db.models import Q
 from constants.constants import *
 from django.contrib import messages
 from django.utils.http import urlencode
+from django.utils import timezone
+import pytz
 
 
 class AdvertList(ListView):
@@ -105,12 +108,13 @@ class AdvertDetailModerate(PermissionRequiredMixin, DetailView, FormMixin):
                 else:
                     try:
                         ad.status = Status.objects.get(id=MODERATED)
-                        ad.published_at = datetime.now()
+                        ad.published_at = timezone.now()
                         ad.save()
                         messages.add_message(
                             request, messages.SUCCESS,
                             f'The advert has been approved.'
                         )
+                        return JsonResponse({"redirect": "true", "redirect_url": f"{reverse('advert_list')}"}, status=200)
                     except ObjectDoesNotExist:
                         messages.add_message(
                             request,
@@ -123,7 +127,7 @@ class AdvertDetailModerate(PermissionRequiredMixin, DetailView, FormMixin):
                     messages.ERROR,
                     f'Something went wrong while moderating. We are working on the problem'
                 )
-        return render(request, 'adverts/list.html')
+        return JsonResponse({"redirect": "true", "redirect_url": f"{reverse('advert_list')}"}, status=200)
 
 
 class AdvertCreate(LoginRequiredMixin, CreateView):
