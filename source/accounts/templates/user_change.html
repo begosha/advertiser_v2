@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+{% block title %}Edit User Info{% endblock %}
+
+{% block content %}
+<div class="task-view">
+
+    <h1>Edit Personl Info</h1>
+    {% if not fields_only %}
+    <form action="{% url 'change' %}" method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+    {% endif %}
+        {% include 'partial/form.html' with form=form fields_only=True %}
+        {% include 'partial/form.html' with form=profile_form fields_only=True %}
+        <br>
+    
+    {% if not fields_only %}
+        <input type="submit" value="Submit">
+    {% endif %}
+</form>
+
+    <a class="btn btn-outline-info" href="{% url 'password_change' %}">Change Password</a>
+    <br>
+</div>
+
+{% endblock %}
