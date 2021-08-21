@@ -1,6 +1,8 @@
 from django.contrib.auth.mixins import PermissionRequiredMixin
+from django.core.exceptions import ObjectDoesNotExist
 from django.shortcuts import render
 from django.shortcuts import redirect
+from datetime import datetime
 from django.urls import reverse, reverse_lazy
 from django.views.generic import View, TemplateView, RedirectView, FormView, ListView, DetailView, CreateView, UpdateView, DeleteView
 from advertiser_app.models import (
@@ -8,10 +10,13 @@ from advertiser_app.models import (
     Status,
     Category
 )
+from django.views.generic.edit import FormMixin
 from constants.constants import DEFAULT_STATUS_ID
 from advertiser_app.forms import AdvertForm
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.http import HttpResponse
+import json
+from constants.constants import *
+from django.contrib import messages
 
 
 class AdvertList(ListView):
@@ -40,9 +45,52 @@ class AdvertDetail(DetailView):
     template_name = 'adverts/detail.html'
 
 
-class AdvertDetailModerate(AdvertDetail):
+class AdvertDetailModerate(DetailView, FormMixin):
     model = Advert
+    form_class = AdvertForm
     template_name = 'adverts/detail.html'
+
+    def post(self, request, *args, **kwargs):
+        body = json.loads(self.request.body)
+        for key, val in body.items():
+            try:
+                ad = Advert.objects.get(id=key)
+                if val == 'decline':
+                    try:
+                        ad.status = Status.objects.get(id=DECLINED)
+                        ad.save()
+                        messages.add_message(
+                            request, messages.SUCCESS,
+                            f'The advert has been declined.'
+                        )
+                    except ObjectDoesNotExist:
+                        messages.add_message(
+                            request,
+                            messages.ERROR,
+                            f'Something went wrong while moderating. We are working on the problem'
+                        )
+                else:
+                    try:
+                        ad.status = Status.objects.get(id=MODERATED)
+                        ad.published_at = datetime.now()
+                        ad.save()
+                        messages.add_message(
+                            request, messages.SUCCESS,
+                            f'The advert has been approved.'
+                        )
+                    except ObjectDoesNotExist:
+                        messages.add_message(
+                            request,
+                            messages.ERROR,
+                            f'Something went wrong while moderating. We are working on the problem'
+                        )
+            except ObjectDoesNotExist:
+                messages.add_message(
+                    request,
+                    messages.ERROR,
+                    f'Something went wrong while moderating. We are working on the problem'
+                )
+        return render(request, 'adverts/list.html')
 
 
 class AdvertCreate(LoginRequiredMixin, CreateView):
@@ -65,6 +113,11 @@ class AdvertUpdate(UpdateView):
     model = Advert
     template_name = 'adverts/update.html'
     context_object_name = 'advert'
+
+    def form_valid(self, form):
+        self.object = form.save()
+        self.object.status = Status.objects.get(id=DEFAULT_STATUS_ID)
+        return super().form_valid(form)
 
     def get_success_url(self):
         if self.request.user.is_staff:

@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
+{% load static %}
 {% block title %}{{ user_obj.get_full_name|default:user_obj.username }}{% endblock %}
-
 {% block content %}
 <div class="task-view">
     <h1>Profile of: {{ user_obj.get_full_name|default:user_obj.username }}</h1>
@@ -14,5 +14,20 @@
     <a class="btn btn-outline-info" href="{% url 'password_change' %}">Change Password</a>
     {% endif %}
 </div>
-
+<br>
+<h3>{{ user_obj.get_full_name|default:user_obj.username }}'s Adverts:</h3>
+<br>
+<div class="row row-cols-1 row-cols-md-2 g-4">
+    {% for ad in user_obj.adverts.all %}
+        {% if request.user == user_obj %}
+            {% if not ad.is_deleted %}
+                {% include 'partial/author_ad_list.html' %}
+            {% endif %}
+        {% else %}
+            {% if ad.status.status == 'moderated' and not ad.is_deleted %}
+                {% include 'partial/author_ad_list.html' %}
+            {% endif %}
+        {% endif %}
+    {% endfor %}
+</div>
 {% endblock %}
