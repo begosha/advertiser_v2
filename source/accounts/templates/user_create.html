@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+
+
+{% block title %}Sign Up{% endblock %}
+
+
+{% block content %}
+
+    <h1>Sign Up</h1>
+    <div class="task-form">
+        <form action="" method="POST">
+            {% include 'partial/form.html' with form_method='post' button_text="Sign Up" %}
+        </form>
+    </div>
+
+{% endblock %}
+
