@@ -84,5 +84,20 @@ Now you can launch the project locally using the command
 
  ```
  ~$ ./manage.py runserver
+ 
  ```
+ 
+ users:
+ 
+ login : moderator
+ 
+ pswd : moderator
+ 
+ login : client 
+ 
+ pswd : client
+ 
+ login : client2
+ 
+ pswd : client2
 
