@@ -4,7 +4,8 @@ from advertiser_app.views.adverts import (
     AdvertForModerationList,
     AdvertDetail,
     AdvertDetailModerate,
-    AdvertCreate
+    AdvertCreate,
+    AdvertUpdate
 )
 
 urlpatterns = [
@@ -13,4 +14,5 @@ urlpatterns = [
     path('advert/<int:pk>/', AdvertDetail.as_view(), name='advert_detail'),
     path('advert/moderate/<int:pk>/', AdvertDetailModerate.as_view(), name='advert_detail_moderate'),
     path('create/', AdvertCreate.as_view(), name='create'),
+    path('update/<int:pk>/', AdvertUpdate.as_view(), name='update'),
 ]
