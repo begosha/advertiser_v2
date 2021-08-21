@@ -69,6 +69,9 @@ class Advert(models.Model):
         db_table = 'adverts'
         verbose_name = 'Advert'
         verbose_name_plural = 'Adverts'
+        permissions = [
+            ('moderate_advert', 'Can moderate the advert and change statuses')
+        ]
 
     def __str__(self):
         return f'{self.title} - {self.author}'
