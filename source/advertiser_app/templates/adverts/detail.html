@@ -30,8 +30,10 @@
         {% if advert.author == request.user %}
         <div class="card-body">
             <a class="btn btn-outline-info waves-effect px-3" role="button" aria-pressed="true" href="{% url 'update' advert.pk %}" style="text-decoration: none;">Edit</a>
+            {% if not advert.status.status == 'declined' %}
              <button type="button" class="btn btn-outline-info waves-effect px-3" data-toggle="modal" data-target="#deletion">Delete
             </button>
+            {% endif %}
         </div>
         {% endif %}
         {% if 'advert/moderate' in request.get_full_path %}

@@ -5,7 +5,7 @@ from accounts.views import RegisterView, UserDetailView, UserChangeView, UserPas
 from django.contrib.auth.views import LoginView, LogoutView
 
 urlpatterns = [
-    path('accounts/login/', LoginView.as_view(redirect_authenticated_user=True), name='login'),
+    path('accounts/login/', LoginView.as_view(), name='login'),
     path('accounts/logout/', LogoutView.as_view(), name='logout'),
     path('accounts/create/', RegisterView.as_view(), name='create'),
     path('profile/<int:pk>/', UserDetailView.as_view(), name='detail'),

@@ -21,24 +21,18 @@
                 <div class="collapse navbar-collapse" id="navbarNav">
                     <ul class="navbar-nav">
                         {% if user.is_authenticated %}
-                            <li class="nav-item" style="padding-top: 7px"><a href="{% url 'detail' user.pk %}">My Profile</a></li>
+                            <li class="nav-item" style="padding-top: 7px">Hello, <a href="{% url 'detail' user.pk %}">{{ user.username }}</a>!</li>
                             <li class="nav-item">
                                     <a class="nav-link" href="{% url 'logout' %}?next={{ request.get_full_path }}">Sign out</a>
                                 </li>
-                        {% if request.user|in_group:"moderators" %}
-                        <li class="nav-item">
-                                    <a class="nav-link" href="{% url 'moderation' %}">Moderation</a>
-                                </li>
-                        {% endif %}
+                            {% if request.user|in_group:"moderators" %}
                                 <li class="nav-item">
-                                    <a class="nav-link" href="{% url 'create' %}">Add Advert</a>
-                                </li>
+                                            <a class="nav-link" href="{% url 'moderation' %}">Moderation</a>
+                                        </li>
+                            {% endif %}
                             {% else %}
                                 <li class="nav-item">
-                                    <a class="nav-link" href="{% url 'login' %}?next={{ request.GET.next }}">Login</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" href="{% url 'create' %}">Sign Up</a>
+                                    <a class="nav-link" href="{% url 'login' %}?next={{ request.get_full_path }}">Login</a>
                                 </li>
                         {% endif %}
                     </ul>

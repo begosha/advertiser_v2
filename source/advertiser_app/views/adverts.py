@@ -65,7 +65,7 @@ class AdvertList(ListView):
 
 class AdvertForModerationList(PermissionRequiredMixin, AdvertList):
     template_name = 'adverts/moderation_list.html'
-    permission_required = 'advertiser_app.can_view_advert'
+    permission_required = 'advertiser_app.view_advert'
 
     def get_queryset(self):
         queryset = Advert.objects.filter(status__exact=DEFAULT_STATUS_ID, is_deleted__exact=False)
