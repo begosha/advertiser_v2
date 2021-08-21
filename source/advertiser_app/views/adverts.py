@@ -54,7 +54,7 @@ class AdvertDetailModerate(PermissionRequiredMixin, DetailView, FormMixin):
     model = Advert
     form_class = AdvertForm
     template_name = 'adverts/detail.html'
-    permission_required = 'advertiser_app.can_change_advert'
+    permission_required = 'advertiser_app.moderate_advert'
 
     def post(self, request, *args, **kwargs):
         body = json.loads(self.request.body)
@@ -141,7 +141,7 @@ class AdvertDelete(PermissionRequiredMixin, DeleteView):
         return self.get_object().author == self.request.user
 
     def get(self,request, *args, **kwargs):
-            ad = Advert.objects.get(id=self.kwargs.get('pk'))
-            ad.is_deleted = True
-            ad.save()
-            return redirect('advert_list')
+        ad = Advert.objects.get(id=self.kwargs.get('pk'))
+        ad.is_deleted = True
+        ad.save()
+        return redirect('advert_list')
