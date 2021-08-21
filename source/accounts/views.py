@@ -1,7 +1,7 @@
 from django.contrib.auth import authenticate, login, logout, get_user_model, update_session_auth_hash
 from django.shortcuts import render, get_object_or_404, redirect, reverse
 from .forms import MyUserCreationForm, UserChangeForm, ProfileChangeForm, PasswordChangeForm
-from webapp.forms import SimpleSearchForm
+from advertiser_app.forms import SimpleSearchForm
 from django.views.generic import DetailView, ListView, UpdateView, CreateView
 from django.contrib.auth.models import User
 from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin, UserPassesTestMixin
@@ -34,7 +34,7 @@ class RegisterView(CreateView):
         if not next_url:
             next_url = self.request.POST.get('next')
         if not next_url:
-            next_url = reverse('index')
+            next_url = reverse('advert_list')
         return next_url
 
 
@@ -96,7 +96,7 @@ class UserPasswordChangeView(UpdateView):
         return response
 
     def get_success_url(self):
-        return reverse('index')
+        return reverse('advert_list')
 
 
 
