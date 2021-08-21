@@ -47,6 +47,10 @@ class Advert(models.Model):
         related_name='adverts',
         verbose_name='Status'
     )
+    is_deleted = models.BooleanField(
+        default=False,
+        verbose_name='Is Deleted'
+    )
     created_at = models.DateTimeField(
         auto_now_add=True,
         verbose_name='Created At'
@@ -56,7 +60,6 @@ class Advert(models.Model):
         verbose_name='Updated At'
     )
     published_at = models.DateTimeField(
-        auto_now=True,
         verbose_name='Published At'
     )
 
