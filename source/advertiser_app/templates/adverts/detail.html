@@ -26,7 +26,7 @@
   </ul>
         {% if advert.author == request.user %}
         <div class="card-body">
-            <a href="#" class="card-link">Edit</a>
+            <a href="{% url 'update' advert.pk %}" class="card-link">Edit</a>
              <a href="#" class="card-link">Delete</a>
         </div>
         {% endif %}

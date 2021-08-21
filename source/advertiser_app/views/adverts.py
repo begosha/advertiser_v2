@@ -9,6 +9,8 @@ from advertiser_app.models import (
 )
 from constants.constants import DEFAULT_STATUS_ID
 from advertiser_app.forms import AdvertForm
+from django.contrib.auth.mixins import LoginRequiredMixin
+
 
 class AdvertList(ListView):
     template_name = 'adverts/list.html'
@@ -41,7 +43,7 @@ class AdvertDetailModerate(AdvertDetail):
     template_name = 'adverts/detail.html'
 
 
-class AdvertCreate(CreateView):
+class AdvertCreate(LoginRequiredMixin, CreateView):
     template_name = 'adverts/create.html'
     form_class = AdvertForm
     model = Advert
@@ -54,4 +56,17 @@ class AdvertCreate(CreateView):
 
     def get_success_url(self):
         return reverse('advert_list')
+
+
+class AdvertUpdate(UpdateView):
+    form_class = AdvertForm
+    model = Advert
+    template_name = 'adverts/update.html'
+    context_object_name = 'advert'
+
+    def get_success_url(self):
+        if self.request.user.is_staff:
+            return reverse('advert_detail_moderate', kwargs={'pk': self.kwargs.get('pk')})
+        else:
+            return reverse('advert_detail', kwargs={'pk': self.kwargs.get('pk')})
 

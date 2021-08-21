@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+{% block title %}Add a New Project{% endblock %}
+{% block content %}
+	<div class="header-info-block">
+            <h1>Add New Advert</h1>
+	</div>
+	<div class="form">
+		<form action="" enctype="multipart/form-data" method="POST">
+			{% include "partial/form.html" with button_text="ADD" %}
+		</form>
+	</div>
+{% endblock %}
